@@ -1,0 +1,43 @@
+{
+  "type": "Microsoft.CostManagement/exports",
+  "apiVersion": "2022-10-01",
+  "name": "string",
+  "scope": "string",
+  "eTag": "string",
+  "properties": {
+    "definition": {
+      "dataSet": {
+        "configuration": {
+          "columns": [ "string" ]
+        },
+        "granularity": "Daily"
+      },
+      "timeframe": "string",
+      "timePeriod": {
+        "from": "string",
+        "to": "string"
+      },
+      "type": "string"
+    },
+    "deliveryInfo": {
+      "destination": {
+        "container": "string",
+        "resourceId": "string",
+        "rootFolderPath": "string",
+        "sasToken": "string",
+        "storageAccount": "string"
+      }
+    },
+    "format": "Csv",
+    "partitionData": "bool",
+    "runHistory": {},
+    "schedule": {
+      "recurrence": "string",
+      "recurrencePeriod": {
+        "from": "string",
+        "to": "string"
+      },
+      "status": "string"
+    }
+  }
+}
