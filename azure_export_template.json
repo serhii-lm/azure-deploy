@@ -22,7 +22,31 @@
       "type": "Microsoft.CostManagement/exports",
       "apiVersion": "2022-10-01",
       "name": "[parameters('exportName')]",
-      "properties": {}
+      "properties": {
+          "schedule": {
+            "status": "Active",
+            "recurrence": "Daily",
+            "recurrencePeriod": {
+              "from": "2020-06-01T00:00:00Z",
+              "to": "2020-10-31T00:00:00Z"
+            }
+          },
+          "format": "Csv",
+          "deliveryInfo": {
+              "destination": {
+                "resourceId": "/subscriptions/00000000-0000-0000-0000-000000000000/resourceGroups/MYDEVTESTRG/providers/Microsoft.Storage/storageAccounts/{yourStorageAccount} ",
+                "container": "{yourContainer}",
+                "rootFolderPath": "{yourDirectory}"
+              }
+          },
+          "definition": {
+              "type": "ActualCost",
+              "timeframe": "MonthToDate",
+              "dataSet": {
+                  "granularity": "Daily"
+              }
+          }
+      }
     }
   ],
   "outputs": {
