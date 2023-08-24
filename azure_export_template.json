@@ -11,23 +11,44 @@
   "parameters": {
     "exportName": {
       "type": "string",
-      "defaultValue": "[format('store{0}', uniqueString(resourceGroup().id))]",
+      "defaultValue": "[concat('lm-cm-export', uniqueString(resourceGroup().id))]",
       "metadata": {
-        "description": "The name of the export"
+        "description": "The name of the Azure Cost Management Export"
       }
     },
     "storageAccountSubscription": {
       "type": "string",
       "defaultValue": "[subscription()]",
       "metadata": {
-        "Description": "Azure Subscription of the Storage Account"
+        "Description": "The subscription of the Storage Account"
       }
     },
     "storageAccountResourceGroup": {
       "type": "string",
       "defaultValue": "[resourceGroup()]",
       "metadata": {
-        "Description": "Azure Resource Group of the Storage Account"
+        "Description": "The resource group of the Storage Account"
+      }
+    },
+    "storageAccountName": {
+      "type": "string",
+      "defaultValue": "[concat('lm-cm-export-storage', uniqueString(resourceGroup().id))]",
+      "metadata": {
+        "Description": "The name of the Storage Account for the Cost Management Exports"
+      }
+    },
+    "storageAccountContainer": {
+      "type": "string",
+      "defaultValue": "[concat('lm-cm-export-container', uniqueString(resourceGroup().id))]",
+      "metadata": {
+        "Description": "The name of the Container for the Cost Management Exports"
+      }
+    },
+    "storageAccountDirectory": {
+      "type": "string",
+      "defaultValue": "lm-cm-exports",
+      "metadata": {
+        "Description": "The name of the directory for the Cost Management Exports"
       }
     }    
   },
@@ -48,9 +69,9 @@
           "format": "Csv",
           "deliveryInfo": {
               "destination": {
-                "resourceId": "/subscriptions/{storageAccountSubscription}/resourceGroups/{storageAccountResourceGroup}/providers/Microsoft.Storage/storageAccounts/{yourStorageAccount} ",
-                "container": "{yourContainer}",
-                "rootFolderPath": "{yourDirectory}"
+                "resourceId": "/subscriptions/{storageAccountSubscription}/resourceGroups/{storageAccountResourceGroup}/providers/Microsoft.Storage/storageAccounts/{storageAccountName} ",
+                "container": "{storageAccountContainer}",
+                "rootFolderPath": "{storageAccountDirectory}"
               }
           },
           "definition": {
@@ -75,6 +96,22 @@
     "storageAccountSubscription": {
       "type": "string",
       "value": "[parameters('storageAccountSubscription')]"
-    }
+    },
+    "storageAccountResourceGroup": {
+      "type": "string",
+      "value": "[parameters('storageAccountResourceGroup')]"      
+    },
+    "storageAccountName": {
+      "type": "string",
+      "value": "[parameters('storageAccountName')]"      
+    },  
+    "storageAccountContainer": {
+      "type": "string",
+      "value": "[parameters('storageAccountContainer')]"      
+    },       
+    "storageAccountDirectory": {
+      "type": "string",
+      "value": "[parameters('storageAccountDirectory')]"      
+    },       
   }
 }
