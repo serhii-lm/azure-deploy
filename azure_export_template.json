@@ -112,6 +112,6 @@
     "storageAccountDirectory": {
       "type": "string",
       "value": "[parameters('storageAccountDirectory')]"      
-    },       
+    }       
   }
 }
