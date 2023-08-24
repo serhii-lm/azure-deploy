@@ -15,7 +15,21 @@
       "metadata": {
         "description": "The name of the export"
       }
-    }
+    },
+    "storageAccountSubscription": {
+      "type": "string",
+      "defaultValue": "[subscription()]",
+      "metadata": {
+        "Description": "Azure Subscription of the Storage Account"
+      }
+    },
+    "storageAccountResourceGroup": {
+      "type": "string",
+      "defaultValue": "[resourceGroup()]",
+      "metadata": {
+        "Description": "Azure Resource Group of the Storage Account"
+      }
+    }    
   },
   "resources": [
     {
@@ -34,7 +48,7 @@
           "format": "Csv",
           "deliveryInfo": {
               "destination": {
-                "resourceId": "/subscriptions/00000000-0000-0000-0000-000000000000/resourceGroups/MYDEVTESTRG/providers/Microsoft.Storage/storageAccounts/{yourStorageAccount} ",
+                "resourceId": "/subscriptions/{storageAccountSubscription}/resourceGroups/{storageAccountResourceGroup}/providers/Microsoft.Storage/storageAccounts/{yourStorageAccount} ",
                 "container": "{yourContainer}",
                 "rootFolderPath": "{yourDirectory}"
               }
@@ -57,6 +71,10 @@
     "exportId": {
       "type": "string",
       "value": "[resourceId('Microsoft.CostManagement/exports', parameters('exportName'))]"
+    },
+    "storageAccountSubscription": {
+      "type": "string",
+      "value": "[parameters('storageAccountSubscription')]"
     }
   }
 }
