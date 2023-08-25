@@ -16,20 +16,6 @@
         "description": "The name of the Azure Cost Management Export"
       }
     },
-    "storageAccountSubscription": {
-      "type": "string",
-      "defaultValue": "[subscription().id]",
-      "metadata": {
-        "Description": "The subscription of the Storage Account"
-      }
-    },
-    "storageAccountResourceGroup": {
-      "type": "string",
-      "defaultValue": "[resourceGroup().name]",
-      "metadata": {
-        "Description": "The resource group of the Storage Account"
-      }
-    },
     "storageAccountName": {
       "type": "string",
       "defaultValue": "[concat('lm-cm-export-storage', uniqueString(resourceGroup().id))]",
@@ -68,7 +54,7 @@
           "format": "Csv",
           "deliveryInfo": {
               "destination": {
-                "resourceId": "[format('/subscriptions/{0}/resourceGroups/{1}/providers/Microsoft.Storage/storageAccounts/{2}', parameters('storageAccountSubscription'), parameters('storageAccountResourceGroup'), parameters('storageAccountName'))]",
+                "resourceId": "[format('/subscriptions/{0}/resourceGroups/{1}/providers/Microsoft.Storage/storageAccounts/{2}', subscription().id, resourceGroup().name, parameters('storageAccountName'))]",
                 "container": "[parameters('storageAccountContainer')]",
                 "rootFolderPath": "[parameters('storageAccountDirectory')]"
               }
