@@ -20,14 +20,14 @@
       "type": "string",
       "defaultValue": "[utcNow('yyyy-MM-ddTHH:mm:ssZ')]",
       "metadata": {
-        "description": "The name of the Azure Cost Management Export"
+        "description": "The start date of the Azure Cost Management Export"
       }
     },    
-    "storageAccountName": {
+    "storageAccountId": {
       "type": "string",
-      "defaultValue": "[concat('lm-cm-export-storage', uniqueString(resourceGroup().id))]",
+      "defaultValue": "",
       "metadata": {
-        "Description": "The name of the Storage Account for the Cost Management Exports"
+        "Description": "The resource id of the Storage account"
       }
     },
     "storageAccountContainer": {
@@ -61,7 +61,7 @@
           "format": "Csv",
           "deliveryInfo": {
               "destination": {
-                "resourceId": "[format('/subscriptions/{0}/resourceGroups/{1}/providers/Microsoft.Storage/storageAccounts/{2}', subscription().id, resourceGroup().name, parameters('storageAccountName'))]",
+                "resourceId": "[parameters('storageAccountId')]",
                 "container": "[parameters('storageAccountContainer')]",
                 "rootFolderPath": "[parameters('storageAccountDirectory')]"
               }
@@ -73,7 +73,10 @@
                   "granularity": "Daily"
               }
           }
-      }
+      },
+      "dependsOn": [
+        "[parameters('storageAccountId')]"
+      ]
     }
   ],
   "outputs": {
