@@ -82,10 +82,6 @@
       "type": "string",
       "value": "[parameters('storageAccountSubscription')]"
     },
-    "storageAccountResourceGroup": {
-      "type": "string",
-      "value": "[parameters('storageAccountResourceGroup')]"      
-    },
     "storageAccountName": {
       "type": "string",
       "value": "[parameters('storageAccountName')]"      
