@@ -78,10 +78,6 @@
       "type": "string",
       "value": "[resourceId('Microsoft.CostManagement/exports', parameters('exportName'))]"
     },
-    "storageAccountSubscription": {
-      "type": "string",
-      "value": "[parameters('storageAccountSubscription')]"
-    },
     "storageAccountName": {
       "type": "string",
       "value": "[parameters('storageAccountName')]"      
