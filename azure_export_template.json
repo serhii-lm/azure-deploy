@@ -16,6 +16,13 @@
         "description": "The name of the Azure Cost Management Export"
       }
     },
+    "exportStartFrom": {
+      "type": "string",
+      "defaultValue": "[utcNow('yyyy-MM-ddTHH:mm:ssZ')]",
+      "metadata": {
+        "description": "The name of the Azure Cost Management Export"
+      }
+    },    
     "storageAccountName": {
       "type": "string",
       "defaultValue": "[concat('lm-cm-export-storage', uniqueString(resourceGroup().id))]",
@@ -48,7 +55,7 @@
             "status": "Active",
             "recurrence": "Daily",
             "recurrencePeriod": {
-              "from": "[utcNow('yyyy-MM-ddTHH:mm:ssZ')]"
+              "from": "[parameters('exportStartFrom')]"
             }
           },
           "format": "Csv",
