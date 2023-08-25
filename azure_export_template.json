@@ -25,7 +25,7 @@
     },
     "storageAccountResourceGroup": {
       "type": "string",
-      "defaultValue": "[resourceGroup()]",
+      "defaultValue": "[resourceGroup().name]",
       "metadata": {
         "Description": "The resource group of the Storage Account"
       }
