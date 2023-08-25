@@ -62,16 +62,15 @@
             "status": "Active",
             "recurrence": "Daily",
             "recurrencePeriod": {
-              "from": "2020-06-01T00:00:00Z",
-              "to": "2020-10-31T00:00:00Z"
+              "from": "[utcNow('yyyy-MM-ddTHH:mm:ssZ')]"
             }
           },
           "format": "Csv",
           "deliveryInfo": {
               "destination": {
-                "resourceId": "/subscriptions/{storageAccountSubscription}/resourceGroups/{storageAccountResourceGroup}/providers/Microsoft.Storage/storageAccounts/{storageAccountName} ",
-                "container": "{storageAccountContainer}",
-                "rootFolderPath": "{storageAccountDirectory}"
+                "resourceId": "[format('/subscriptions/{0}/resourceGroups/{1}/providers/Microsoft.Storage/storageAccounts/{2}', parameters('storageAccountSubscription'), parameters('storageAccountResourceGroup'), parameters('storageAccountName'))]",
+                "container": "[parameters('storageAccountContainer')]",
+                "rootFolderPath": "[parameters('storageAccountDirectory')]"
               }
           },
           "definition": {
