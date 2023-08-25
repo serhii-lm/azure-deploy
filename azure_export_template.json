@@ -73,7 +73,8 @@
               "dataSet": {
                   "granularity": "Daily"
               }
-          }
+          },
+          "partitionData": true
       }
     }
   ],
