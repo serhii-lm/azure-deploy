@@ -73,10 +73,7 @@
                   "granularity": "Daily"
               }
           }
-      },
-      "dependsOn": [
-        "[parameters('storageAccountId')]"
-      ]
+      }
     }
   ],
   "outputs": {
@@ -88,10 +85,6 @@
       "type": "string",
       "value": "[resourceId('Microsoft.CostManagement/exports', parameters('exportName'))]"
     },
-    "storageAccountName": {
-      "type": "string",
-      "value": "[parameters('storageAccountName')]"      
-    },  
     "storageAccountContainer": {
       "type": "string",
       "value": "[parameters('storageAccountContainer')]"      
