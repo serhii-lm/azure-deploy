@@ -78,6 +78,7 @@
       "type": "Microsoft.CostManagement/exports",
       "apiVersion": "2022-10-01",
       "name": "[parameters('exportName')]",
+      "scope": "/",
       "properties": {
           "schedule": {
             "status": "Active",
