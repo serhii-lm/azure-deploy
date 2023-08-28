@@ -23,8 +23,6 @@
     "storageAccountName": {
       "type": "string",
       "defaultValue": "[concat('lmcmexpstor', uniqueString(resourceGroup().id))]",
-      "minLength": 3,
-      "maxLength": 24,
       "metadata": {
         "description": "The name of the Azure Storage Account"
       }      
