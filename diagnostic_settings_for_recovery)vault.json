@@ -23,8 +23,7 @@
       "name": "lm_backup_to_logAnalytics",
       "properties": {
         "workspaceId": "[parameters('workspaceId')]",
-        "eventHubAuthorizationRuleId": "[parameters('eventHubAuthorizationRuleId')]",
-        "eventHubName": "[parameters('eventHubName')]",
+        "logAnalyticsDestinationType": "Dedicated",
         "logs": [
             {
                 "category": "CoreAzureBackup",
@@ -154,10 +153,15 @@
             }
         ],
         "metrics": [
-          {
-            "category": "AllMetrics",
-            "enabled": true
-          }
+            {
+                "timeGrain": null,
+                "enabled": false,
+                "retentionPolicy": {
+                    "days": 0,
+                    "enabled": false
+                },
+                "category": "Health"
+            }
         ]
       }
     }
