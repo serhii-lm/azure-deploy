@@ -5,11 +5,7 @@
 * [Microsoft.CostManagement exports - ARM template resource definition](https://learn.microsoft.com/en-us/azure/templates/microsoft.costmanagement/exports?pivots=deployment-language-arm-template)
 * [Azure: Deploy to Azure Button](https://learn.microsoft.com/en-us/azure/azure-resource-manager/templates/deploy-to-azure-button)
 * [Azure: Retrieve large cost datasets recurringly with exports](https://learn.microsoft.com/en-us/azure/cost-management-billing/costs/ingest-azure-usage-at-scale)
-
-
-
-[Encode URL](https://www.urlencoder.org/)
-
+* [Encode URL](https://www.urlencoder.org/)
 * URL: https://portal.azure.com/#create/Microsoft.Template/uri{ENCODED_RESOURCE_TEMPLATE_URL}
 * Image https://aka.ms/deploytoazurebutton
 
