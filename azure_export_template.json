@@ -22,7 +22,7 @@
     },
     "storageAccountName": {
       "type": "string",
-      "defaultValue": "[concat('LmCmExpStor', uniqueString(resourceGroup().id))]",
+      "defaultValue": "[concat('lmcmexpstor', uniqueString(resourceGroup().id))]",
       "minLength": 3,
       "maxLength": 24,
       "metadata": {
