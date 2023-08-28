@@ -15,7 +15,10 @@
       "allowedValues": [
         "new",
         "existing"
-      ]
+      ],
+      "metadata": {
+        "description": "Create a new Azure Storage Account in the resource's group location?"
+      }  
     },
     "storageAccountName": {
       "type": "string",
