@@ -9,7 +9,7 @@
     }
   },
   "parameters": {
-    "newOrExisting": {
+    "newOrExistingStorageAccount": {
       "type": "string",
       "defaultValue": "new",
       "allowedValues": [
@@ -58,7 +58,7 @@
   },
   "resources": [
     {
-      "condition": "[equals(parameters('newOrExisting'), 'new')]",
+      "condition": "[equals(parameters('newOrExistingStorageAccount'), 'new')]",
       "type": "Microsoft.Storage/storageAccounts",
       "apiVersion": "2022-09-01",
       "name": "[parameters('storageAccountName')]",
@@ -69,7 +69,7 @@
       "kind": "StorageV2"
     },
     {
-      "condition": "[equals(parameters('newOrExisting'), 'existing')]",
+      "condition": "[equals(parameters('newOrExistingStorageAccount'), 'existing')]",
       "type": "Microsoft.Storage/storageAccounts",
       "apiVersion": "2022-09-01",
       "name": "[parameters('storageAccountName')]"
