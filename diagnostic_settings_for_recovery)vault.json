@@ -2,7 +2,7 @@
   "$schema": "https://schema.management.azure.com/schemas/2019-04-01/deploymentTemplate.json#",
   "contentVersion": "1.0.0.0",
   "parameters": {
-    "vaultName": {
+    "recoveryServiceVaultName": {
       "type": "string",
       "metadata": {
         "description": "The name of the key vault."
@@ -19,18 +19,139 @@
     {
       "type": "Microsoft.Insights/diagnosticSettings",
       "apiVersion": "2021-05-01-preview",
-      "scope": "[format('Microsoft.KeyVault/vaults/{0}', parameters('vaultName'))]",
-      "name": "[parameters('settingName')]",
+      "scope": "[format('Microsoft.RecoveryServices/vaults/{0}', parameters('recoveryServiceVaultName'))]",
+      "name": "lm_backup_to_logAnalytics",
       "properties": {
         "workspaceId": "[parameters('workspaceId')]",
-        "storageAccountId": "[parameters('storageAccountId')]",
         "eventHubAuthorizationRuleId": "[parameters('eventHubAuthorizationRuleId')]",
         "eventHubName": "[parameters('eventHubName')]",
         "logs": [
-          {
-            "category": "AuditEvent",
-            "enabled": true
-          }
+            {
+                "category": "CoreAzureBackup",
+                "categoryGroup": null,
+                "enabled": true,
+                "retentionPolicy": {
+                    "days": 0,
+                    "enabled": false
+                }
+            },
+            {
+                "category": "AddonAzureBackupAlerts",
+                "categoryGroup": null,
+                "enabled": true,
+                "retentionPolicy": {
+                    "days": 0,
+                    "enabled": false
+                }
+            },
+            {
+                "category": "AddonAzureBackupJobs",
+                "categoryGroup": null,
+                "enabled": true,
+                "retentionPolicy": {
+                    "days": 0,
+                    "enabled": false
+                }
+            },
+            {
+                "category": "AddonAzureBackupPolicy",
+                "categoryGroup": null,
+                "enabled": true,
+                "retentionPolicy": {
+                    "days": 0,
+                    "enabled": false
+                }
+            },
+            {
+                "category": "AddonAzureBackupProtectedInstance",
+                "categoryGroup": null,
+                "enabled": true,
+                "retentionPolicy": {
+                    "days": 0,
+                    "enabled": false
+                }
+            },
+            {
+                "category": "AddonAzureBackupStorage",
+                "categoryGroup": null,
+                "enabled": true,
+                "retentionPolicy": {
+                    "days": 0,
+                    "enabled": false
+                }
+            },
+            {
+                "category": "AzureBackupReport",
+                "categoryGroup": null,
+                "enabled": false,
+                "retentionPolicy": {
+                    "days": 0,
+                    "enabled": false
+                }
+            },
+            {
+                "category": "AzureSiteRecoveryJobs",
+                "categoryGroup": null,
+                "enabled": false,
+                "retentionPolicy": {
+                    "days": 0,
+                    "enabled": false
+                }
+            },
+            {
+                "category": "AzureSiteRecoveryEvents",
+                "categoryGroup": null,
+                "enabled": false,
+                "retentionPolicy": {
+                    "days": 0,
+                    "enabled": false
+                }
+            },
+            {
+                "category": "AzureSiteRecoveryReplicatedItems",
+                "categoryGroup": null,
+                "enabled": false,
+                "retentionPolicy": {
+                    "days": 0,
+                    "enabled": false
+                }
+            },
+            {
+                "category": "AzureSiteRecoveryReplicationStats",
+                "categoryGroup": null,
+                "enabled": false,
+                "retentionPolicy": {
+                    "days": 0,
+                    "enabled": false
+                }
+            },
+            {
+                "category": "AzureSiteRecoveryRecoveryPoints",
+                "categoryGroup": null,
+                "enabled": false,
+                "retentionPolicy": {
+                    "days": 0,
+                    "enabled": false
+                }
+            },
+            {
+                "category": "AzureSiteRecoveryReplicationDataUploadRate",
+                "categoryGroup": null,
+                "enabled": false,
+                "retentionPolicy": {
+                    "days": 0,
+                    "enabled": false
+                }
+            },
+            {
+                "category": "AzureSiteRecoveryProtectedDiskDataChurn",
+                "categoryGroup": null,
+                "enabled": false,
+                "retentionPolicy": {
+                    "days": 0,
+                    "enabled": false
+                }
+            }
         ],
         "metrics": [
           {
