@@ -22,7 +22,9 @@
     },
     "storageAccountName": {
       "type": "string",
-      "defaultValue": "[concat('LmCmExportStorage', uniqueString(resourceGroup().id))]",
+      "defaultValue": "[concat('LmCmExpStor', uniqueString(resourceGroup().id))]",
+      "minLength": 3,
+      "maxLength": 24,
       "metadata": {
         "description": "The name of the Azure Storage Account"
       }      
