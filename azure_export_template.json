@@ -9,9 +9,24 @@
     }
   },
   "parameters": {
+    "newOrExisting": {
+      "type": "string",
+      "defaultValue": "new",
+      "allowedValues": [
+        "new",
+        "existing"
+      ]
+    },
+    "storageAccountName": {
+      "type": "string",
+      "defaultValue": "[concat('lm-cm-export-storage-', uniqueString(resourceGroup().id))]",
+      "metadata": {
+        "description": "The name of the Azure Storage Account"
+      }      
+    },
     "exportName": {
       "type": "string",
-      "defaultValue": "[concat('lm-cm-export', uniqueString(resourceGroup().id))]",
+      "defaultValue": "[concat('lm-cm-export-', uniqueString(resourceGroup().id))]",
       "metadata": {
         "description": "The name of the Azure Cost Management Export"
       }
@@ -23,13 +38,6 @@
         "description": "The start date of the Azure Cost Management Export"
       }
     },    
-    "storageAccountId": {
-      "type": "string",
-      "defaultValue": "",
-      "metadata": {
-        "Description": "The resource id of the Storage account"
-      }
-    },
     "storageAccountContainer": {
       "type": "string",
       "defaultValue": "[concat('lm-cm-export-container', uniqueString(resourceGroup().id))]",
@@ -47,6 +55,23 @@
   },
   "resources": [
     {
+      "condition": "[equals(parameters('newOrExisting'), 'new')]",
+      "type": "Microsoft.Storage/storageAccounts",
+      "apiVersion": "2022-09-01",
+      "name": "[parameters('storageAccountName')]",
+      "location": "[parameters('location')]",
+      "sku": {
+        "name": "Standard_LRS"
+      },
+      "kind": "StorageV2"
+    },
+    {
+      "condition": "[equals(parameters('newOrExisting'), 'existing')]",
+      "type": "Microsoft.Storage/storageAccounts",
+      "apiVersion": "2022-09-01",
+      "name": "[parameters('storageAccountName')]"
+    },
+    {
       "type": "Microsoft.CostManagement/exports",
       "apiVersion": "2022-10-01",
       "name": "[parameters('exportName')]",
@@ -62,7 +87,7 @@
           "format": "Csv",
           "deliveryInfo": {
               "destination": {
-                "resourceId": "[parameters('storageAccountId')]",
+                "resourceId": "[resourceId('Microsoft.Storage/storageAccounts', parameters('storageAccountName'))]",
                 "container": "[parameters('storageAccountContainer')]",
                 "rootFolderPath": "[parameters('storageAccountDirectory')]"
               }
@@ -75,7 +100,10 @@
               }
           },
           "partitionData": true
-      }
+      },
+      "dependsOn": [
+        "[resourceId('Microsoft.Storage/storageAccounts', parameters('storageAccountName'))]"
+      ]
     }
   ],
   "outputs": {
@@ -86,6 +114,10 @@
     "exportId": {
       "type": "string",
       "value": "[resourceId('Microsoft.CostManagement/exports', parameters('exportName'))]"
+    },
+    "storageAccountId": {
+      "type": "string",
+      "value": "[resourceId('Microsoft.Storage/storageAccounts', parameters('storageAccountName'))]"
     },
     "storageAccountContainer": {
       "type": "string",
