@@ -32,7 +32,7 @@
       "name": "[parameters('policyAssignmentName')]",
       "apiVersion": "2019-09-01",
       "properties": {
-        "scope": "[subscriptionResourceId('Microsoft.Resources/resourceGroups', resourceGroup().name)]",
+        "scope": "[subscriptionId().id]",
         "policyDefinitionId": "[parameters('policyDefinitionID')]",
         "logAnalytics": "[parameters('logAnalytics')]"
       }
