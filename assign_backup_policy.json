@@ -11,7 +11,7 @@
     },
     "policyDefinitionID": {
       "type": "string",
-      "defaultValue": "/providers/Microsoft.Authorization/policyDefinitions/c717fb0c-d118-4c43-ab3d-ece30ac81fb3"
+      "defaultValue": "/providers/Microsoft.Authorization/policyDefinitions/c717fb0c-d118-4c43-ab3d-ece30ac81fb3",
       "metadata": {
         "description": "ID of the 'Deploy Diagnostic Settings for Recovery Services Vault to Log Analytics workspace for resource specific categories.' policy being assigned."
       }
