@@ -1,192 +1,149 @@
 {
-  "$schema": "https://schema.management.azure.com/schemas/2019-04-01/deploymentTemplate.json#",
-  "contentVersion": "1.0.0.0",
-  "parameters": {
-  },
-  "resources": [
-      {
-    "name": "7af362f3-2e06-441d-9eec-f83ad36774d1",
-    "type": "Microsoft.Authorization/policyDefinitions",
-    "properties": {
-      "displayName": "vm-backup-without-tag",
-      "description": "need to add description",
-      "metadata": {
-        "version": "1.0.0",
-        "category": "Backup"
-      },
-      "mode": "indexed",
-      "parameters": {
-        "backupVaultResourceGroup": {
-          "type": "string",
-          "metadata": {
-            "displayName": "Backup Vault Resource Group Name",
-            "description": "Resource Group in which the backup vault resides"
-          }
-        },
-        "backupVault": {
-          "type": "string",
-          "metadata": {
-            "displayName": "Backup Vault Name",
-            "description": "Target backup vault for VM backup onboarding"
-          }
-        },
-        "backupPolicy": {
-          "type": "string",
-          "metadata": {
-            "displayName": "backupPolicy",
-            "description": "Target backup policy for VM backup onboarding"
-          }
-        },
-        "exclusionTagName": {
-          "type": "String",
-          "metadata": {
-            "displayName": "Exclusion Tag Name",
-            "description": "Name of the tag to use for excluding VMs from the scope of this policy. This should be used along with the Exclusion Tag Value parameter."
+  "type": "Microsoft.Authorization/policyDefinitions",
+  "apiVersion": "2021-06-01",
+  "name": "AzureSiteRecovery serhii test",
+  "properties": {
+    "metadata": {},
+    "mode": "Indexed",
+    "parameters": {},
+    "policyRule": {
+      "if": {
+        "allof": [
+          {
+            "field": "type",
+            "equals": "Microsoft.RecoveryServices/vaults"
           },
-          "defaultValue": "SkipBackup"
-        },
-        "exclusionTagValue": {
-          "type": "Array",
-          "metadata": {
-            "displayName": "Exclusion Tag Values",
-            "description": "Value of the tag to use for excluding VMs from the scope of this policy (in case of multiple values, use a comma-separated list). This should be used along with the Exclusion Tag Name parameter."
-          },
-          "defaultValue": [
-            "true",
-            "yes"
-          ]
-        },
-        "effect": {
-          "type": "String",
-          "metadata": {
-            "displayName": "Effect",
-            "description": "DeployIfNotExists, AuditIfNotExists or Disabled the execution of the Policy"
-          },
-          "allowedValues": [
-            "DeployIfNotExists",
-            "AuditIfNotExists",
-            "Disabled"
-          ],
-          "defaultValue": "DeployIfNotExists"
-        }
-      },
-      "policyRule": {
-        "if": {
-          "allOf": [
-            {
-              "field": "type",
-              "equals": "Microsoft.Compute/virtualMachines"
-            },
-            {
-              "field": "id",
-              "notContains": "/resourceGroups/databricks-rg-"
-            },
-            {
-              "anyOf": [
-                {
-                  "not": {
-                    "field": "[concat('tags[', parameters('exclusionTagName'), ']')]",
-                    "in": "[parameters('exclusionTagValue')]"
-                  }
-                },
-                {
-                  "value": "[empty(parameters('exclusionTagValue'))]",
-                  "equals": "true"
-                },
-                {
-                  "value": "[empty(parameters('exclusionTagName'))]",
-                  "equals": "true"
-                }
-              ]
+          {
+            "not": {
+              "field": "[concat('tags[',parameters('tagName'), ']')]",
+              "equals": "[parameters('tagValue')]"
             }
-          ]
-        },
-        "then": {
-          "effect": "[parameters('effect')]",
-          "details": {
-            "roleDefinitionIds": [
-              "/providers/microsoft.authorization/roleDefinitions/9980e02c-c2be-4d73-94e8-173b1dc7cf3c",
-              "/providers/microsoft.authorization/roleDefinitions/5e467623-bb1f-42f4-a55d-6e525e11384b"
-            ],
-            "type": "Microsoft.RecoveryServices/backupprotecteditems",
-            "existenceCondition": {
-              "allOf": [
-                {
-                  "field": "name",
-                  "like": "*"
-                }
-              ]
-            },
-            "deployment": {
-              "properties": {
-                "mode": "incremental",
-                "template": {
-                  "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
-                  "contentVersion": "1.0.0.0",
-                  "parameters": {
-                    "vmName": {
-                      "type": "string"
-                    },
-                    "vmResourceGroup": {
-                      "type": "string"
-                    },
-                    "backupVaultResourceGroup": {
-                      "type": "string"
-                    },
-                    "backupVault": {
-                      "type": "string"
-                    },
-                    "backupPolicy": {
-                      "type": "string"
-                    }
-                  },
-                  "variables": {
-                    "backupIntentConcat": "[concat('/Azure/vm;iaasvmcontainerv2;',parameters('vmResourceGroup'),';',parameters('vmName'))]"
-                  },
-                  "resources": [
-                    {
-                      "apiVersion": "2017-05-10",
-                      "name": "[concat(parameters('vmName'), '-' , 'backupIntent')]",
-                      "type": "Microsoft.Resources/deployments",
-                      "resourceGroup": "[parameters('backupVaultResourceGroup')]",
-                      "properties": {
-                        "mode": "Incremental",
-                        "template": {
-                          "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
-                          "contentVersion": "1.0.0.0",
-                          "resources": [
-                            {
-                              "name": "[concat(parameters('backupVault'),variables('backupIntentConcat'))]",
-                              "apiVersion": "2017-07-01",
-                              "type": "Microsoft.RecoveryServices/vaults/backupFabrics/backupProtectionIntent",
-                              "properties": {
-                                "protectionIntentItemType": "AzureResourceItem",
-                                "policyId": "[concat(resourceId('Microsoft.RecoveryServices/vaults/backuppolicies',parameters('backupVault'),parameters('backupPolicy')))]",
-                                "sourceResourceId": "[concat(resourceId('Microsoft.Compute/virtualMachines',parameters('vmName')))]"
-                              }
-                            }
-                          ]
-                        }
+          }
+        ]
+      },
+      "then": {
+        "effect": "deployIfNotExists",
+        "details": {
+          "type": "Microsoft.Insights/diagnosticSettings",
+          "existenceCondition": {
+            "allof": [
+              {
+                "count": {
+                  "field": "Microsoft.Insights/diagnosticSettings/logs[*]",
+                  "where": {
+                    "allof": [
+                      {
+                        "field": "Microsoft.Insights/diagnosticSettings/logs[*].Category",
+                        "in": [
+                          "AzureSiteRecoveryJobs",
+                          "AzureSiteRecoveryEvents",
+                          "AzureSiteRecoveryReplicatedItems",
+                          "AzureSiteRecoveryReplicationStats",
+                          "AzureSiteRecoveryRecoveryPoints",
+                          "AzureSiteRecoveryReplicationDataUploadRate",
+                          "AzureSiteRecoveryProtectedDiskDataChurn"
+                        ]
+                      },
+                      {
+                        "field": "Microsoft.Insights/diagnosticSettings/logs[*].Enabled",
+                        "equals": "True"
                       }
-                    }
-                  ]
-                },
-                "parameters": {
-                  "vmName": {
-                    "value": "[field('name')]"
-                  },
-                  "vmResourceGroup": {
-                    "value": "[resourcegroup().name]"
-                  },
-                  "backupVaultResourceGroup": {
-                    "value": "[parameters('backupVaultResourceGroup')]"
-                  },
-                  "backupVault": {
-                    "value": "[parameters('backupVault')]"
-                  },
-                  "backupPolicy": {
-                    "value": "[parameters('backupPolicy')]"
+                    ]
                   }
+                },
+                "Equals": 7
+              },
+              {
+                "field": "Microsoft.Insights/diagnosticSettings/workspaceId",
+                "notEquals": ""
+              },
+              {
+                "field": "Microsoft.Insights/diagnosticSettings/logAnalyticsDestinationType",
+                "equals": "AzureDiagnostics"
+              }
+            ]
+          },
+          "roleDefinitionIds": [
+            "/providers/microsoft.authorization/roleDefinitions/749f88d5-cbae-40b8-bcfc-e573ddc772fa",
+            "/providers/microsoft.authorization/roleDefinitions/92aaf0da-9dab-42b6-94a3-d43ce8d16293"
+          ],
+          "deployment": {
+            "properties": {
+              "mode": "incremental",
+              "template": {
+                "$schema": "http://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
+                "contentVersion": "1.0.0.0",
+                "parameters": {
+                  "vaultName": {
+                    "type": "string"
+                  },
+                  "logAnalytics": {
+                    "type": "string"
+                  },
+                  "profileName": {
+                    "type": "string"
+                  }
+                },
+                "variables": {},
+                "resources": [
+                  {
+                    "type": "Microsoft.RecoveryServices/vaults/providers/diagnosticSettings",
+                    "apiVersion": "2017-05-01-preview",
+                    "name": "[concat(parameters('vaultName'), '/', 'Microsoft.Insights/', parameters('profileName'))]",
+                    "dependsOn": [],
+                    "properties": {
+                      "workspaceId": "[parameters('logAnalytics')]",
+                      "logAnalyticsDestinationType": "AzureDiagnostics",
+                      "metrics": [],
+                      "logs": [
+                        {
+                          "category": "AzureSiteRecoveryJobs",
+                          "enabled": "true"
+                        },
+                        {
+                          "category": "AzureSiteRecoveryEvents",
+                          "enabled": "true"
+                        },
+                        {
+                          "category": "AzureSiteRecoveryReplicatedItems",
+                          "enabled": "true"
+                        },
+                        {
+                          "category": "AzureSiteRecoveryReplicationStats",
+                          "enabled": "true"
+                        },
+                        {
+                          "category": "AzureSiteRecoveryRecoveryPoints",
+                          "enabled": "true"
+                        },
+                        {
+                          "category": "AzureSiteRecoveryReplicationDataUploadRate",
+                          "enabled": "true"
+                        },
+                        {
+                          "category": "AzureSiteRecoveryProtectedDiskDataChurn",
+                          "enabled": "true"
+                        }
+                      ]
+                    }
+                  }
+                ],
+                "outputs": {
+                  "policy": {
+                    "type": "string",
+                    "value": "[concat(parameters('logAnalytics'), 'configured for AzureDiagnostics logs for ', ': ', parameters('vaultName'), '/', 'Microsoft.Insights/', parameters('profileName'))]"
+                  }
+                }
+              },
+              "parameters": {
+                "logAnalytics": {
+                  "value": "[parameters('logAnalytics')]"
+                },
+                "vaultName": {
+                  "value": "[field('name')]"
+                },
+                "profileName": {
+                  "value": "[parameters('profileName')]"
                 }
               }
             }
@@ -195,5 +152,4 @@
       }
     }
   }
-  ]
 }
