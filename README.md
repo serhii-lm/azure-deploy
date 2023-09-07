@@ -26,14 +26,17 @@
 * Azure Storage Account from Sandbox GitHub project
 [![Deploy to Azure](https://aka.ms/deploytoazurebutton)](https://portal.azure.com/#create/Microsoft.Template/uri/https%3A%2F%2Fraw.githubusercontent.com%2Fserhii-lm%2Fazure-deploy%2Fmain%2Fazure_storage_template.json)
 
-* Deploy Azure Cost Management Export to Azure [![Deploy to Azure](https://aka.ms/deploytoazurebutton)](https://portal.azure.com/#create/Microsoft.Template/uri/https%3A%2F%2Fraw.githubusercontent.com%2Fserhii-lm%2Fazure-deploy%2Fmain%2Fazure_export_template.json)
+* Deploy Azure Cost Management Export to Azure (NOT SUPPORTED) [![Deploy to Azure](https://aka.ms/deploytoazurebutton)](https://portal.azure.com/#create/Microsoft.Template/uri/https%3A%2F%2Fraw.githubusercontent.com%2Fserhii-lm%2Fazure-deploy%2Fmain%2Fazure_export_template.json)
 
-* Deploy Azure Diagnostic Settings for Azure  Management Export to Azure [![Deploy to Azure](https://aka.ms/deploytoazurebutton)](https://portal.azure.com/#create/Microsoft.Template/uri/https%3A%2F%2Fraw.githubusercontent.com%2Fserhii-lm%2Fazure-deploy%2Fmain%2Fdiagnostic_settings_for_recovery_vault.json)
+* Deploy Azure Diagnostic Settings for Azure [![Deploy to Azure](https://aka.ms/deploytoazurebutton)](https://portal.azure.com/#create/Microsoft.Template/uri/https%3A%2F%2Fraw.githubusercontent.com%2Fserhii-lm%2Fazure-deploy%2Fmain%2Fdiagnostic_settings_for_recovery_vault.json)
 
 
 * Assign BuildIn Backup Policy [![Deploy to Azure](https://aka.ms/deploytoazurebutton)](https://portal.azure.com/#create/Microsoft.Template/uri/https%3A%2F%2Fraw.githubusercontent.com%2Fserhii-lm%2Fazure-deploy%2Fmain%2Fassign_backup_policy.json)
 
-* Create Policy Definition [![Deploy to Azure](https://aka.ms/deploytoazurebutton)](https://portal.azure.com/#create/Microsoft.Template/uri/https%3A%2F%2Fportal.azure.com%2F%23create%2FMicrosoft.Template%2Furi%2Fhttps%253A%252F%252Fraw.githubusercontent.com%252Fserhii-lm%252Fazure-deploy%252Fmain%252Fassign_backup_policy.json)
+* Create Policy Definition (ARM templated dont't work for policies. Use another endpoint) [![Deploy to Azure](https://aka.ms/deploytoazurebutton)](https://portal.azure.com/#create/Microsoft.Template/uri/https%3A%2F%2Fportal.azure.com%2F%23create%2FMicrosoft.Template%2Furi%2Fhttps%253A%252F%252Fraw.githubusercontent.com%252Fserhii-lm%252Fazure-deploy%252Fmain%252Fassign_backup_policy.json)
+
+* [![Deploy policy to Azure](http://azuredeploy.net/deploybutton.png)](https://portal.azure.com/#blade/Microsoft_Azure_Policy/CreatePolicyDefinitionBlade/uri/https%3A%2F%2Fportal.azure.com%2F%23create%2FMicrosoft.Template%2Furi%2Fhttps%253A%252F%252Fraw.githubusercontent.com%252Fserhii-lm%252Fazure-deploy%252Fmain%252Fassign_backup_policy.json)
+
  
 
 
