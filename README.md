@@ -33,9 +33,9 @@
 
 * Assign BuildIn Backup Policy [![Deploy to Azure](https://aka.ms/deploytoazurebutton)](https://portal.azure.com/#create/Microsoft.Template/uri/https%3A%2F%2Fraw.githubusercontent.com%2Fserhii-lm%2Fazure-deploy%2Fmain%2Fassign_backup_policy.json)
 
-* Create Policy Definition (ARM templated don't work for policies. Use another endpoint) [![Deploy to Azure](https://aka.ms/deploytoazurebutton)](https://portal.azure.com/#create/Microsoft.Template/uri/https%3A%2F%2Fportal.azure.com%2F%23create%2FMicrosoft.Template%2Furi%2Fhttps%253A%252F%252Fraw.githubusercontent.com%252Fserhii-lm%252Fazure-deploy%252Fmain%252Fassign_backup_policy.json)
+* Create Policy Definition (ARM templated don't work for policies. Use another endpoint) [![Deploy to Azure](https://aka.ms/deploytoazurebutton)](https://portal.azure.com/#create/Microsoft.Template/uri/https%3A%2F%2Fraw.githubusercontent.com%2Fserhii-lm%2Fazure-deploy%2Fmain%2Fazure_siterecovery_policy.json)
 
-* [![Deploy policy to Azure](http://azuredeploy.net/deploybutton.png)](https://portal.azure.com/#blade/Microsoft_Azure_Policy/CreatePolicyDefinitionBlade/uri/https%253A%252F%252Fraw.githubusercontent.com%252Fserhii-lm%252Fazure-deploy%252Fmain%252Fassign_backup_policy.json)
+* [![Deploy policy to Azure](http://azuredeploy.net/deploybutton.png)](https://portal.azure.com/#blade/Microsoft_Azure_Policy/CreatePolicyDefinitionBlade/uri/https%3A%2F%2Fraw.githubusercontent.com%2Fserhii-lm%2Fazure-deploy%2Fmain%2Fazure_siterecovery_policy.json)
 
  
 
